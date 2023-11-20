@@ -26,6 +26,20 @@ const mapDispatchToProps = (dispatch) => {
 
 const DisplayTodos = (props) => {
   const [sort, setSort] = useState("active");
+
+  // Load todos from local storage on component mount
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      props.addTodo(JSON.parse(storedTodos));
+    }
+  }, []);
+
+  // Save todos to local storage whenever todos are updated
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(props.todos));
+  }, [props.todos]);
+
   const getButtonStyle = (buttonSort) => {
     return {
       scale: sort === buttonSort ? 1 : 0.9,
