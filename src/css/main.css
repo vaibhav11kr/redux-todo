@@ -121,11 +121,10 @@ html {
     hsla(219, 88%, 94%, 0.9) 100%
   );
   margin: 0 1rem 1rem 0;
-  min-height: 5.5rem;
+  height: auto;
   width: 17rem;
   border-radius: 0.5rem;
   padding: 1rem;
-
   position: relative;
 }
 
@@ -134,9 +133,9 @@ html {
   border-radius: 8px;
   border: none;
   background-color: #e1ebfd;
-
   color: #271c6c;
-  min-height: 70%;
+  height: 5.5rem;
+  overflow: scroll;
 }
 .card textarea:disabled {
   background-color: transparent;
