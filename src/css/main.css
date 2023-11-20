@@ -134,8 +134,9 @@ html {
   border: none;
   background-color: #e1ebfd;
   color: #271c6c;
-  height: 5.5rem;
+  min-height: 5.5rem;
   overflow: scroll;
+  text-align: justify;
 }
 .card textarea:disabled {
   background-color: transparent;
@@ -188,6 +189,12 @@ html {
   }
   .card {
     margin-right: 0;
+    min-height: 5.5rem;
+  }
+  .card textarea {
+    min-height: 5.5rem;
+    overflow: scroll;
+    text-align: justify;
   }
   .todoList{
     height: 60vh;
