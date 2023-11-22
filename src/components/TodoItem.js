@@ -1,5 +1,5 @@
 // TodoItem.js
-import React, { useRef, useEffect } from "react";
+import React, { useRef} from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { IoCheckmarkDoneSharp, IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
