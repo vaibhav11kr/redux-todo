@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
 html {
   line-height: 1.15;
-  height: 100vh;
-  width: 100vw;
 }
 ::-webkit-scrollbar {
   width: 0;  /* Remove scrollbar space */

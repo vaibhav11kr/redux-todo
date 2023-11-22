@@ -1,24 +1,23 @@
+// reducer.js
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+let initialState = JSON.parse(localStorage.getItem("todos")) || [];
 
 const addTodoReducer = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    //here we will write our reducer
-    //Adding todos
     addTodos: (state, action) => {
       state.push(action.payload);
-      return state;
     },
-    //remove todos
     removeTodos: (state, action) => {
-      return state.filter((item) => item.id !== action.payload);
+      const updatedState = state.filter((item) => item.id !== action.payload);
+
+      localStorage.setItem("todos", JSON.stringify(updatedState));
+      return updatedState;
     },
-    //update todos
     updateTodos: (state, action) => {
-      return state.map((todo) => {
+      const updatedState = state.map((todo) => {
         if (todo.id === action.payload.id) {
           return {
             ...todo,
@@ -27,18 +26,26 @@ const addTodoReducer = createSlice({
         }
         return todo;
       });
+
+      localStorage.setItem("todos", JSON.stringify(updatedState));
+      return updatedState;
     },
-    //completed
     completeTodos: (state, action) => {
-      return state.map((todo) => {
+      const updatedState = state.map((todo) => {
         if (todo.id === action.payload) {
           return {
             ...todo,
-            completed: true,
+            completed: !todo.completed,
           };
         }
         return todo;
       });
+
+      localStorage.setItem("todos", JSON.stringify(updatedState));
+      return updatedState;
+    },
+    clearTodos: (state) => {
+      return [];
     },
   },
 });
@@ -48,5 +55,6 @@ export const {
   removeTodos,
   updateTodos,
   completeTodos,
+  clearTodos,
 } = addTodoReducer.actions;
 export const reducer = addTodoReducer.reducer;

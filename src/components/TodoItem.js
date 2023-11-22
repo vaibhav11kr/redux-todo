@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import React, { useRef } from "react";
+// TodoItem.js
+import React, { useRef, useEffect } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { IoCheckmarkDoneSharp, IoClose } from "react-icons/io5";
-
+import { motion } from "framer-motion";
 const TodoItem = (props) => {
   const { item, updateTodo, removeTodo, completeTodo } = props;
 
@@ -14,11 +14,12 @@ const TodoItem = (props) => {
   };
 
   const update = (id, value, e) => {
-    if (e.which === 13) {
+    if (e.which === 13 || !inputRef.current.contains(e.target)) {
       updateTodo({ id, item: value });
       inputRef.current.disabled = true;
     }
   };
+
   return (
     <motion.li
       initial={{ x: "150vw", transition: { type: "spring", duration: 2 } }}

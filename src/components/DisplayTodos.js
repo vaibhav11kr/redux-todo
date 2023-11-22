@@ -1,3 +1,4 @@
+// DisplayTodos.js
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
@@ -27,25 +28,13 @@ const mapDispatchToProps = (dispatch) => {
 const DisplayTodos = (props) => {
   const [sort, setSort] = useState("active");
 
-  // Load todos from local storage on component mount
-  useEffect(() => {
-    const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      props.addTodo(JSON.parse(storedTodos));
-    }
-  }, []);
-
-  // Save todos to local storage whenever todos are updated
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(props.todos));
-  }, [props.todos]);
-
   const getButtonStyle = (buttonSort) => {
     return {
       scale: sort === buttonSort ? 1 : 0.9,
       border: sort === buttonSort ? "2px solid #007BFF" : "2px solid #ccc",
     };
   };
+
   return (
     <div className="displaytodos">
       <div className="buttons">
@@ -89,7 +78,6 @@ const DisplayTodos = (props) => {
                   );
                 })
               : null}
-            {/* for completed items */}
             {props.todos.length > 0 && sort === "completed"
               ? props.todos.map((item) => {
                   return (
@@ -105,7 +93,6 @@ const DisplayTodos = (props) => {
                   );
                 })
               : null}
-            {/* for all items */}
             {props.todos.length > 0 && sort === "all"
               ? props.todos.map((item) => {
                   return (

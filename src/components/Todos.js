@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { connect } from "react-redux";
-import { addTodos } from "../redux/reducer";
+import { addTodos, clearTodos } from "../redux/reducer";
 import { GoPlus } from "react-icons/go";
 import { motion } from "framer-motion";
 
@@ -13,11 +13,22 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addTodo: (obj) => dispatch(addTodos(obj)),
+    clearTodos: () => dispatch(clearTodos()), 
   };
 };
 
 const Todos = (props) => {
   const [todo, setTodo] = useState("");
+  
+  useEffect(() => {
+    const initialTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    if (initialTodos.length > 0) {
+      props.clearTodos();
+      initialTodos.forEach((todo) => {
+        props.addTodo(todo);
+      });
+    }
+  }, []);
 
   const handleChange = (e) => {
     setTodo(e.target.value);
@@ -27,12 +38,16 @@ const Todos = (props) => {
     if (todo === "") {
       alert("Oops! Empty entry 🫤");
     } else {
-      props.addTodo({
+      const newTodo = {
         id: Math.floor(Math.random() * 1000),
         item: todo,
         completed: false,
-      });
+      };
+      props.addTodo(newTodo);
       setTodo("");
+      
+      const updatedTodos = [...props.todos, newTodo];
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
     }
   };
   return (
